@@ -1,0 +1,11 @@
+Include
+Lib
+Scripts
+tcl
+venv
+*.txt
+.idea
+account/__pycache__
+account/migrations
+zone/__pycache__
+*pyc

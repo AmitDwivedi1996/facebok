@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +26,7 @@ SECRET_KEY = '#iu!8$*yu9@(3u0a@f3a8#%sw08zxwis#7*%kwm3=y9vq9^tcz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -80,7 +81,9 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': 'facebook',
         'USER': 'postgres',
-        'PASSWORD': 'Postgresql#8520468520'
+        'PASSWORD': 'Postgresql#8520468520',
+        "HOST": 'localhost',
+        'PORT': 5432
     }
 }
 
@@ -122,3 +125,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'account/statics'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+
+
+django_heroku.settings(locals())

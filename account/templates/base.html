@@ -4,10 +4,37 @@
     <head>
         <title>{% block title %}{% endblock %}</title>
         <link href="{% static "css/base.css" %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div id="header">
             <span class="logo">Bookmarks</span>
+            {% if request.user.is_authenticated %}
+            <ul>
+                <li {% if section == 'dashboard' %} style={color:"red";}{% endif %}>
+                    <a href="{% url "account:dashboard" %}">My dashboard</a>
+                </li>
+
+                <li {% if section == 'images' %} style={color:"red";}{% endif %}>
+                    <a href="#">Images</a>
+                </li>
+
+                <li {% if section == 'people' %} style={color:"red";}{% endif %}>
+                    <a href="#">People</a>
+</li>
+</ul>
+{% endif %}
+
+<span class="user">
+{% if request.user.is_authenticated %}
+Hello {{ request.user.first_name }},
+<a href="{% url "account:logout" %}">Logout</a>
+{% else %}
+<a href="{% url "account:login" %}">Log-in</a>
+{% endif %}
+</span>
         </div>
         <div id="content">
             {% block content %}{% endblock %}
